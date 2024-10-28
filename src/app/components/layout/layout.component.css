@@ -1,0 +1,62 @@
+.layout-container {
+    display: flex;
+    height: 100vh; /* Ocupa toda a altura da tela */
+    background-color: rgb(255, 255, 255);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin: 20px;
+    font-family: "Poppins", serif;
+    font-weight: 300;
+    font-style: normal;
+    
+  }
+  
+  .sidebar {
+    width: 200px; /* Largura do menu lateral */
+    background-color: #000000;
+    padding: 15px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px;
+    text-align: center;
+  }
+  
+  .sidebar ul li {
+    margin: 50px 0;
+  }
+  
+  .sidebar ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    padding: 8px;
+    display: block;
+    transition: background 0.2s;
+    border-radius: 10px;
+    background-color: #212529;
+    border: 1px solid white;
+  }
+  
+  .sidebar ul li a:hover {
+    background-color: #ccc; /* Cor ao passar o mouse */
+    border-radius: 10px;
+    color: black;
+  }
+  
+  .main-content {
+    flex: 1; /* Ocupa o espaço restante */
+    padding: 20px;
+    overflow-y: auto; /* Permite rolagem se necessário */
+  }
+  img{
+  position: relative;
+  left: 22px;
+  top: 15px;
+  background-color: white;
+  border-radius: 10px;
+  border: 3px solid rgb(255, 0, 0);
+  }
+  

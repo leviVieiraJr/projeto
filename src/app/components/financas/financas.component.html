@@ -1,0 +1,48 @@
+<div class="financas-container">
+    <h2>Controle de Finanças</h2>
+  
+    <form [formGroup]="transactionForm" (ngSubmit)="editingTransaction ? updateTransaction() : addTransaction()">
+      <div class="form-group">
+        <label for="description">Descrição</label>
+        <input type="text" id="description" formControlName="description" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="amount">Valor</label>
+        <input type="number" id="amount" formControlName="amount" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="date">Data</label>
+        <input type="date" id="date" formControlName="date" required />
+      </div>
+  
+      <button type="submit" [disabled]="transactionForm.invalid">
+        {{ editingTransaction ? 'Atualizar Transação' : 'Adicionar Transação' }}
+      </button>
+      <button type="button" (click)="resetForm()">Cancelar</button>
+    </form>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>Descrição</th>
+          <th>Valor</th>
+          <th>Data</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of transactions">
+          <td>{{ transaction.description }}</td>
+          <td>{{ transaction.amount | currency:'BRL':'symbol':'1.2-2' }}</td>
+          <td>{{ transaction.date | date:'dd/MM/yyyy' }}</td>
+          <td>
+            <button (click)="editTransaction(transaction)">Editar</button>
+            <button (click)="deleteTransaction(transaction)">Remover</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
