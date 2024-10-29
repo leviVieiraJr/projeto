@@ -9,7 +9,7 @@ import { EstoqueComponent } from './components/estoque/estoque.component';
 import { LoginComponent } from './components/login/login.component';
 import { FinancasComponent } from './components/financas/financas.component';
 import { HomeComponent } from './components/home/home.component';
-import { LayoutComponent } from './components/layout/layout.component';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +18,7 @@ import { LayoutComponent } from './components/layout/layout.component';
     LoginComponent,
     FinancasComponent,
     HomeComponent,
-    LayoutComponent,
+    
     
   ],
   imports: [

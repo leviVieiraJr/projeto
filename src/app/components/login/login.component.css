@@ -1,77 +1,21 @@
-.Container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    top: 140px;
-
+.content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
 }
-.login-container {
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    background-color: white;
-    width: 30vw;
-    
-  }
-  
-  h2 {
-    margin-bottom: 20px;
-    font-family: "Poppins", serif;
-    font-weight: 600;
-    font-style: normal;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-    text-align: left;
-    
-
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    font-family: "Poppins", serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-  
-  input {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    border: 1px solid #000000;
-    border-radius: 4px;
-    background-color: #cccccc;
-  }
-  
-  button {
-    width: 100%;
-    padding: 10px;
-    background-color: #2a920b;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    font-family: "Poppins", serif;
-    font-weight: 600;
-    font-style: normal;
-  }
-  
-  button:disabled {
-    background-color: #000000;
-    cursor: not-allowed;
-  }
-  
-  small {
-    color: red;
-    font-size: 12px;
-  }
-  
+input{
+  width: 20vw;
+}
+button{
+  width: 30vw;
+  margin-top: 15px;
+}
+img{
+  background-color: white;
+  border: 2px solid red;
+  border-radius: 10px;
+  position: relative;
+  right: 10px;
+}

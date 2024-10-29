@@ -1,48 +1,40 @@
-<div class="estoque-container">
-    <h2>Estoque de Produtos</h2>
-  
-    <form [formGroup]="productForm" (ngSubmit)="editingProduct ? updateProduct() : addProduct()">
-      <div class="form-group">
-        <label for="name">Nome do Produto</label>
-        <input type="text" id="name" formControlName="name" required />
-      </div>
-  
-      <div class="form-group">
-        <label for="quantity">Quantidade</label>
-        <input type="number" id="quantity" formControlName="quantity" required />
-      </div>
-  
-      <div class="form-group">
-        <label for="price">Preço</label>
-        <input type="number" id="price" formControlName="price" required />
-      </div>
-  
-      <button type="submit" [disabled]="productForm.invalid">
-        {{ editingProduct ? 'Atualizar Produto' : 'Adicionar Produto' }}
-      </button>
-      <button type="button" (click)="resetForm()">Cancelar</button>
+<div class="layout">
+  <aside class="sidebar">
+    <nav>
+      <ul>
+        <li><a routerLink="/home">Home</a></li>
+        <li><a routerLink="/financas">Finanças</a></li>
+        <li><a routerLink="/estoque">Estoque</a></li>
+        <li><a routerLink="/login">Login</a></li>
+      </ul>
+    </nav>
+  </aside>
+  <main class="content">
+    <h2>Estoque</h2>
+    <p>Filtre os produtos no estoque da empresa.</p>
+
+    <!-- Formulário de filtro de estoque -->
+    <form [formGroup]="estoqueForm" (ngSubmit)="onSubmit()">
+      <label for="nomeProduto">Nome do Produto:</label>
+      <input type="text" id="nomeProduto" formControlName="nomeProduto">
+
+      <label for="categoria">Categoria:</label>
+      <input type="text" id="categoria" formControlName="categoria">
+
+      <label for="quantidadeMinima">Quantidade Mínima:</label>
+      <input type="number" id="quantidadeMinima" formControlName="quantidadeMinima">
+
+      <button type="submit">Filtrar Estoque</button>
     </form>
-  
-    <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Quantidade</th>
-          <th>Preço</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of products">
-          <td>{{ product.name }}</td>
-          <td>{{ product.quantity }}</td>
-          <td>{{ product.price | currency }}</td>
-          <td>
-            <button (click)="editProduct(product)">Editar</button>
-            <button (click)="deleteProduct(product)">Remover</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+
+    <!-- Resultado da filtragem -->
+    <div *ngIf="estoqueResultados.length > 0">
+      <h3>Produtos no Estoque:</h3>
+      <ul>
+        <li *ngFor="let produto of estoqueResultados">
+          {{ produto }}
+        </li>
+      </ul>
+    </div>
+  </main>
+</div>
