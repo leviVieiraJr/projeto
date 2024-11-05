@@ -1,26 +1,68 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+// src/app/components/financas/financas.component.ts
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EstoqueService } from '../../services/estoque.service';
+
+interface Venda {
+  produto: string;
+  quantidade: number;
+  valor: number;
+  data: Date;
+}
 
 @Component({
   selector: 'app-financas',
   templateUrl: './financas.component.html',
   styleUrls: ['./financas.component.css']
 })
-export class FinancasComponent {
-  financasForm: FormGroup;
-  financasResultados: string[] = [];
+export class FinancasComponent implements OnInit {
+  vendaForm: FormGroup;
+  vendas: Venda[] = [];
+  produtos: any[] = []; // Lista de produtos que será preenchida com os produtos do estoque
 
-  constructor(private fb: FormBuilder) {
-    this.financasForm = this.fb.group({
-      dataInicio: [''],
-      dataFim: [''],
-      produto: ['']
+  constructor(
+    private fb: FormBuilder,
+    private estoqueService: EstoqueService // Injeção do EstoqueService
+  ) {
+    this.vendaForm = this.fb.group({
+      produto: ['', Validators.required],
+      quantidade: [1, [Validators.required, Validators.min(1)]],
+      valor: [0, [Validators.required, Validators.min(0)]]
     });
   }
 
-  onSubmit() {
-    const { dataInicio, dataFim, produto } = this.financasForm.value;
-    // Aqui, você pode adicionar a lógica de pesquisa
-    this.financasResultados = [`Resultado para produto: ${produto}, entre ${dataInicio} e ${dataFim}`];
+  ngOnInit(): void {
+    // Carrega a lista de produtos do estoque ao iniciar o componente
+    this.produtos = this.estoqueService.obterProdutos();
+  }
+
+  registrarVenda() {
+    if (this.vendaForm.valid) {
+      const produtoSelecionado = this.vendaForm.value.produto;
+      const quantidade = this.vendaForm.value.quantidade;
+      const valor = this.vendaForm.value.valor;
+
+      // Verifica se o estoque possui quantidade suficiente
+      const produtoEstoque = this.estoqueService.buscarProdutoPorNome(produtoSelecionado);
+      if (produtoEstoque && produtoEstoque.quantidade >= quantidade) {
+        // Registra a venda
+        const novaVenda: Venda = {
+          produto: produtoSelecionado,
+          quantidade: quantidade,
+          valor: valor,
+          data: new Date()
+        };
+
+        this.vendas.push(novaVenda);
+
+        // Atualiza o estoque após a venda
+        this.estoqueService.atualizarQuantidadePorNome(produtoSelecionado, -quantidade);
+
+        // Reseta o formulário para os valores iniciais
+        this.vendaForm.reset({ quantidade: 1, valor: 0 });
+      } else {
+        console.error('Estoque insuficiente para realizar a venda.');
+      }
+    }
   }
 }

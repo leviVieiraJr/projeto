@@ -1,40 +1,42 @@
 <div class="layout">
   <aside class="sidebar">
+    <img src="../../../assets/WhatsApp_Image_2024-03-08_at_16.15.20-removebg-preview.png" alt="" width="200px">
     <nav>
       <ul>
         <li><a routerLink="/home">Home</a></li>
         <li><a routerLink="/financas">Finanças</a></li>
         <li><a routerLink="/estoque">Estoque</a></li>
         <li><a routerLink="/login">Login</a></li>
+        <li><a routerLink="/clientes">Clientes</a></li>
       </ul>
     </nav>
   </aside>
-  <main class="content">
-    <h2>Finanças</h2>
-    <p>Pesquise e filtre informações financeiras.</p>
 
-    <!-- Formulário de filtros financeiros -->
-    <form [formGroup]="financasForm" (ngSubmit)="onSubmit()">
-      <label for="dataInicio">Data de Início:</label>
-      <input type="date" id="dataInicio" formControlName="dataInicio">
-
-      <label for="dataFim">Data de Fim:</label>
-      <input type="date" id="dataFim" formControlName="dataFim">
-
+  <div class="financas-container">
+    <h2>Registrar Venda</h2>
+    <form (ngSubmit)="registrarVenda()" [formGroup]="vendaForm">
       <label for="produto">Produto:</label>
-      <input type="text" id="produto" formControlName="produto">
-
-      <button type="submit">Pesquisar</button>
+      <select id="produto" formControlName="produto">
+        <option *ngFor="let produto of produtos" [value]="produto.nomeProduto">
+          {{ produto.nomeProduto }}
+        </option>
+      </select>
+  
+      <label for="quantidade">Quantidade:</label>
+      <input id="quantidade" type="number" formControlName="quantidade" min="1" required />
+  
+      <label for="valor">Valor Unitário:</label>
+      <input id="valor" type="number" formControlName="valor" min="0" step="0.01" required />
+  
+      <button type="submit">Registrar Venda</button>
     </form>
-
-    <!-- Resultado da pesquisa -->
-    <div *ngIf="financasResultados.length > 0">
-      <h3>Resultados:</h3>
-      <ul>
-        <li *ngFor="let resultado of financasResultados">
-          {{ resultado }}
-        </li>
-      </ul>
+  
+    <h3>Histórico de Vendas</h3>
+    <div *ngFor="let venda of vendas">
+      <p>Produto: {{ venda.produto }}</p>
+      <p>Quantidade: {{ venda.quantidade }}</p>
+      <p>Valor Total: R$ {{ (venda.valor * venda.quantidade) | number: '1.2-2' }}</p>
+      <p>Data: {{ venda.data | date: 'dd/MM/yyyy' }}</p>
     </div>
-  </main>
-</div>
+  </div>
+  

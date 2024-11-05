@@ -31,17 +31,19 @@
   
   .sidebar nav ul li {
     margin: 20px 0;
+    background-color: #3D4145;
   }
   
   .sidebar nav ul li a {
     text-decoration: none;
-    color: #ffffff;
+    color: white;
     font-size: 1.1em;
     transition: color 0.3s ease;
   }
   
-  .sidebar nav ul li a:hover {
-    color: #ffc0cb; /* Rosa claro para hover */
+  
+  .sidebar nav ul li:hover {
+    background-color: #000000; /* Rosa claro para hover */
   }
   
   /* Conteúdo principal */
