@@ -1,6 +1,6 @@
 <div class="layout">
   <aside class="sidebar">
-    <img src="../../../assets/WhatsApp_Image_2024-03-08_at_16.15.20-removebg-preview.png" alt="" width="200px">
+    <img src="../../../assets/WhatsApp_Image_2024-03-08_at_16.15.20-removebg-preview.png" alt="Logo" width="200px">
     <nav>
       <ul>
         <li><a routerLink="/home">Home</a></li>
@@ -11,6 +11,7 @@
       </ul>
     </nav>
   </aside>
+
   <main class="content">
     <h2>Login</h2> 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -19,8 +20,8 @@
 
       <label for="password">Senha:</label>
       <input type="password" id="password" formControlName="password">
+
+      <button type="submit">Entrar</button>
     </form> 
-    <button type="submit" >Entrar</button>
-  
   </main>
 </div>

@@ -1,24 +1,33 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'; // Confirme as importações
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit(): void {
     this.loginForm = this.fb.group({
-      username: [''],
-      password: ['']
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
-  onSubmit() {
-    const { username, password } = this.loginForm.value;
-    // Adicione aqui a lógica de autenticação
-    console.log(`Usuário: ${username}, Senha: ${password}`);
+  onSubmit(): void {
+    if (this.loginForm.valid) {
+      this.authService.login();
+      this.router.navigate(['/home']);
+    }
   }
 }
